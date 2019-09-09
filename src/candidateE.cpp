@@ -1,4 +1,4 @@
-#include "../include/hypothesis.h"
+#include "../include/candidateE.h"
 #include "../include/candidateE.h"
 
 using namespace AMWPHI001;
@@ -7,11 +7,45 @@ Hypothesis Hypothesis::compareHypotheses(std::vector<Hypothesis> exampleTable)
 {
 	if (this->getStatus() == 2) // General case
 	{
-		/* code */
+		for (auto hypothesis : exampleTable)
+		{
+			if (hypothesis.getStatus() == 0)
+			{
+				for (int i = 0; i < this->size(); i++)
+				{
+					if ((this->getAttibute(i) == hypothesis.getAttibute(i)) | this->getAttibute(i) == "?")
+					{
+						continue;
+					}
+					else
+					{
+						this->setAttribute(hypothesis.getAttibute(i), i);
+					}
+				}
+			}
+		}
+		return this;
 	}
 	else if (this->getStatus() == 3) // Specific case
 	{
-		/* code */
+		for (auto hypothesis : exampleTable)
+		{
+			if (hypothesis.getStatus() == 1)
+			{
+				for (int i = 0; i < this->size(); i++)
+				{
+					if ((this->getAttibute(i) == hypothesis.getAttibute(i)) | this->getAttibute(i) == "?")
+					{
+						continue;
+					}
+					else
+					{
+						this->setAttribute("?", i);
+					}
+				}
+			}
+		}
+		return this;
 	}
 	else
 	{
